@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huining.ssm.blog.mapper.CommentMapper">
+    <sql id="commentSql">
+        comment_id as commentId,
+        comment_pid as commentPid,
+        comment_pname as commentPname,
+        comment_article_id as commentArticleId,
+        comment_author_name as commentAuthorName,
+        comment_author_email as commentAuthorEmail,
+        comment_author_url as commentAuthorUrl,
+        comment_author_avatar as commentAuthorAvatar,
+        comment_content as commentContent,
+        comment_agent as commentAgent,
+        comment_ip as commentIp,
+        comment_create_time as commentCreateTime,
+        comment_role as commentRole
+    </sql>
+
+    <sql id="suCommentSql">
+        <set>
+            <if test="commentId != null">comment_id = #{commentId}</if>
+            <if test="commentPid != null">comment_pid = #{commentPid}</if>
+            <if test="commentPname != null and commentPname !=''">comment_pname = #{commentPname}</if>
+            <if test="commentArticleId != null and commentArticleId !=''">comment_article_id = #{commentArticleId}</if>
+            <if test="commentAuthorName != null and commentAuthorName !=''">comment_author_name = #{commentAuthorName}</if>
+            <if test="commentAuthorEmail != null and commentAuthorEmail !=''">comment_author_email = #{commentAuthorEmail}</if>
+            <if test="commentAuthorUrl != null and commentAuthorUrl !=''">comment_author_url = #{commentAuthorUrl}</if>
+            <if test="commentAuthorAvatar != null and commentAuthorAvatar !=''">comment_author_avatar = #{commentAuthorAvatar}</if>
+            <if test="commentContent != null and commentContent !=''">comment_content = #{commentContent}</if>
+            <if test="commentAgent != null and commentAgent !=''">comment_agent = #{commentAgent}</if>
+            <if test="commentIp != null and commentIp !=''">comment_ip = #{commentIp}</if>
+            <if test="commentCreateTime != null">comment_create_time = #{commentCreateTime}</if>
+            <if test="commentRole != null">comment_role = #{commentRole}</if>
+        </set>
+    </sql>
+
+    <select id="listComments" resultType="com.huining.ssm.blog.entity.BlogComment" parameterType="Integer">
+        select <include refid="commentSql" />
+        from comment
+        where comment_role = 0
+        order bycomment_id desc
+        limit #{limit}
+    </select>
+</mapper>
+
+<!--
+comment_id
+comment_pid
+comment_pname
+comment_article_id
+comment_author_name
+comment_author_email
+comment_author_url
+comment_author_avatar
+comment_content
+comment_agent
+comment_ip
+comment_create_time
+comment_role
+
+
+
+commentId
+commentPid
+commentPname
+commentArticleId
+commentAuthorName
+commentAuthorEmail
+commentAuthorUrl
+commentAuthorAvatar
+commentContent
+commentAgent
+commentIp
+commentCreateTime
+commentRole
+-->

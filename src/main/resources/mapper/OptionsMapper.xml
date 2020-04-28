@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huining.ssm.blog.mapper.OptionsMapper">
+    <sql id="optionsSql">
+        option_id as optionId,
+        option_site_title as optionSiteTitle,
+        option_site_descrption as optionSiteDescrption,
+        option_meta_descrption as optionMetaDescrption,
+        option_meta_keyword as optionMetaKeyword,
+        option_aboutsite_avatar as option_aboutsite_avatar,
+        option_aboutsite_title as optionAboutsiteTitle,
+        option_aboutsite_content as optionAboutsiteContent,
+        option_aboutsite_wechat as optionAboutsiteWechat,
+        option_aboutsite_qq as optionAboutsiteQq,
+        option_aboutsite_github as optionAboutsiteGithub,
+        option_aboutsite_weibo as optionAboutsiteWeibo,
+        option_tongji as optionTongji,
+        option_status as optionStatus
+    </sql>
+
+    <sql id="suOptions">
+        <set>
+            <if test="optionId != null">option_id = #{optionId},</if>
+            <if test="optionSiteTitle != null and optionSiteTitle!=''">option_site_title = #{optionSiteTitle},</if>
+            <if test="optionSiteDescrption != null and optionSiteDescrption!=''">option_site_descrption = #{optionSiteDescrption},</if>
+            <if test="optionMetaDescrption != null and optionMetaDescrption!=''">option_meta_descrption = #{optionMetaDescrption},</if>
+            <if test="optionMetaKeyword != null and optionMetaKeyword!=''">option_meta_keyword = #{optionMetaKeyword},</if>
+            <if test="option_aboutsite_avatar != null and option_aboutsite_avatar!=''">option_aboutsite_avatar = #{option_aboutsite_avatar},</if>
+            <if test="optionAboutsiteTitle != null and optionAboutsiteTitle!=''">option_aboutsite_title = #{optionAboutsiteTitle},</if>
+            <if test="optionAboutsiteContent != null and optionAboutsiteContent!=''">option_aboutsite_content = #{optionAboutsiteContent},</if>
+            <if test="optionAboutsiteWechat != null and optionAboutsiteWechat!=''">option_aboutsite_wechat = #{optionAboutsiteWechat},</if>
+            <if test="optionAboutsiteQq != null and optionAboutsiteQq!=''">option_aboutsite_qq = #{optionAboutsiteQq},</if>
+            <if test="optionAboutsiteGithub != null and optionAboutsiteGithub!=''">option_aboutsite_github = #{optionAboutsiteGithub},</if>
+            <if test="optionAboutsiteWeibo != null and optionAboutsiteWeibo!=''">option_aboutsite_weibo = #{optionAboutsiteWeibo},</if>
+            <if test="optionTongji != null and optionTongji!=''">option_tongji = #{optionTongji},</if>
+            <if test="optionStatus != null">option_status = #{optionStatus}</if>
+        </set>
+    </sql>
+
+    <select id="getOptions" resultType="com.huining.ssm.blog.entity.Options">
+        select <include refid="optionsSql"/>
+        from options
+        where option_status = 1 limit 1;
+    </select>
+</mapper>
+<!--
+optionId
+optionSiteTitle
+optionSiteDescrption
+optionMetaDescrption
+optionMetaKeyword
+option_aboutsite_avatar
+optionAboutsiteTitle
+optionAboutsiteContent
+optionAboutsiteWechat
+optionAboutsiteQq
+optionAboutsiteGithub
+optionAboutsiteWeibo
+optionTongji
+optionStatus
+-->

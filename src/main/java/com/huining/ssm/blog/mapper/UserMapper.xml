@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huining.ssm.blog.mapper.UserMapper">
+    <sql id="userSql">
+        user_id as userId,
+        user_name as userName,
+        user_pass as userPass,
+        user_nickname as userNickname,
+        user_email as userEmail,
+        user_url as userUrl,
+        user_avatar as userAvatar,
+        user_last_login_ip as userLastLoginIp,
+        user_register_time as userRegisterTime,
+        user_last_login_time as userLastLoginTime,
+        user_status as userStatus
+    </sql>
+
+    <sql id="suUserSql">
+        <set>
+            <if test="userId != null">vuser_id = #{userId}</if>
+            <if test="userName != null and userName != ''">vuser_name = #{userName}</if>
+            <if test="userPass != null and userPass != ''">vuser_pass = #{userPass}</if>
+            <if test="userNickname != null and userNickname != ''">vuser_nickname = #{userNickname}</if>
+            <if test="userEmail != null and userEmail != ''">vuser_email = #{userEmail}</if>
+            <if test="userUrl != null and userUrl != ''">vuser_url = #{userUrl}</if>
+            <if test="userAvatar != null and userAvatar != ''">vuser_avatar = #{userAvatar}</if>
+            <if test="userLastLoginIp != null and userLastLoginIp != ''">vuser_last_login_ip = #{userLastLoginIp}</if>
+            <if test="userRegisterTime != null">vuser_register_time = #{userRegisterTime}</if>
+            <if test="userLastLoginTime != null">vuser_last_login_time = #{userLastLoginTime}</if>
+            <if test="userStatus != null">vuser_status = #{userStatus}</if>
+        </set>
+    </sql>
+
+    <select id="queryUser"  parameterType="com.huining.ssm.blog.entity.User" resultType="com.huining.ssm.blog.entity.User">
+        select <include refid="userSql"/>
+        from user
+        <where>
+            <if test="userId != null">and user_id = #{userId}</if>
+            <if test="userName != null and userName!=''">and user_name = #{userName}</if>
+            <if test="userPass != null and userPass!=''">and user_pass = #{userPass}</if>
+            <if test="userNickname != null and userNickname!=''">and user_nickname = #{userNickname}</if>
+            <if test="userEmail != null and userEmail!=''">and user_email = #{userEmail}</if>
+            <if test="userUrl != null and userUrl!=''">and user_url = #{userUrl}</if>
+            <if test="userAvatar != null and userAvatar!=''">and user_avatar = #{userAvatar}</if>
+            <if test="userLastLoginIp != null and userLastLoginIp!=''">and user_last_login_ip = #{userLastLoginIp}</if>
+            <if test="userRegisterTime != null">and user_register_time = #{userRegisterTime}</if>
+            <if test="userLastLoginTime != null">and user_last_login_time = #{userLastLoginTime}</if>
+            <if test="userStatus != null">and user_status = #{userStatus}</if>
+        </where>
+        limit 1
+    </select>
+
+    <update id="updateUser" parameterType="com.huining.ssm.blog.entity.User">
+        update user
+        <include refid="suUserSql"/>
+        where user_id = #{userId}
+    </update>
+</mapper>

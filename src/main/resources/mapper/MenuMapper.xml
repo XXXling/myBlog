@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huining.ssm.blog.mapper.MenuMapper">
+    <sql id="blogMenu">
+        menu_id as menuId,
+        menu_name as menuName,
+        menu_url as menuUrl,
+        menu_level as menuLevel,
+        menu_icon as menuIcon,
+        menu_order as menuOrder
+    </sql>
+
+    <sql id="saveMenu">
+        <set>
+            <if test="menuId != null">menu_id = #{menuId},</if>
+            <if test="menuName != null and menuName !=''">menu_name = #{menuName},</if>
+            <if test="menuUrl != null and menuUrl !=''">menu_url = #{menuUrl},</if>
+            <if test="menuLevel != null and menuLevel !=''">menu_level = #{menuLevel},</if>
+            <if test="menuIcon != null and menuIcon !=''">menu_icon = #{menuIcon},</if>
+            <if test="menuOrder != null and menuOrder !=''">menu_order = #{menuOrder}</if>
+        </set>
+    </sql>
+
+    <select id="listMenu" resultType="com.huining.ssm.blog.entity.BlogMenu">
+        select <include refid="blogMenu"/>
+        from menu
+        order by menu_order DESC,menu_id ASC;
+    </select>
+
+    <insert id="addMenu" parameterType="com.huining.ssm.blog.entity.BlogMenu">
+        insert into menu <include refid="saveMenu"/>;
+    </insert>
+
+    <delete id="deleteMenu" parameterType="Integer">
+        delete from menu where menu_id = #{id};
+    </delete>
+
+    <update id="updateMunu" parameterType="com.huining.ssm.blog.entity.BlogMenu">
+        update menu
+        <include refid="saveMenu"/>
+        where menu_id = #{id};
+    </update>
+
+    <select id="findMenuById" resultType="com.huining.ssm.blog.entity.BlogMenu" parameterType="Integer">
+        select <include refid="blogMenu" />
+        from menu
+        where menu_id = #{id};
+    </select>
+</mapper>
