@@ -19,7 +19,7 @@
 
     <!--配置druid连接池-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <!-- 基本属性 url、user、password -->
+        <!-- 基本属性 url、blogUser、password -->
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="${mysql.url}" />
         <property name="username" value="${mysql.username}" />
@@ -67,7 +67,7 @@
     <!--mapper扫描器-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--如果需要扫描多个包，中间使用半角逗号隔开-->
-        <property name="basePackage" value="com.liuyanzhao.ssm.blog.mapper"></property>
+        <property name="basePackage" value="com.huining.ssm.blog.mapper"></property>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 

@@ -10,7 +10,7 @@ import java.util.Date;
  * @Date: 2020/4/24 13:47
  */
 @Data
-public class Link implements Serializable {
+public class BlogLink implements Serializable {
     private static final long serialVersionUID = -259829372268790508L;
 
     private Integer linkId;

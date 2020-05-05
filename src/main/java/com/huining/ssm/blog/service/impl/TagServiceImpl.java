@@ -1,10 +1,14 @@
 package com.huining.ssm.blog.service.impl;
 
+import com.huining.ssm.blog.entity.BlogTag;
+import com.huining.ssm.blog.entity.Tag;
 import com.huining.ssm.blog.mapper.TagMapper;
 import com.huining.ssm.blog.service.TagService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author: huining
@@ -20,5 +24,15 @@ public class TagServiceImpl implements TagService {
     @Override
     public Integer countTag() {
         return tagMapper.countTag();
+    }
+
+    @Override
+    public List<BlogTag> listTag() {
+        return tagMapper.listTag();
+    }
+
+    @Override
+    public BlogTag getTagById(Integer tagId) {
+        return tagMapper.getTagById(tagId);
     }
 }

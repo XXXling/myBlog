@@ -1,5 +1,6 @@
 package com.huining.ssm.blog.mapper;
 
+import com.huining.ssm.blog.entity.BlogLink;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,4 +11,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface LinkMapper {
     Integer countLink(@Param("status") Integer status);
+
+    void insertLink(BlogLink link);
 }

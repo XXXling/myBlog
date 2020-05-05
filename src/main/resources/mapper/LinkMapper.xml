@@ -34,6 +34,10 @@
     <select id="countLink" resultType="Integer">
         select count(0) from link where link_status = #{status};
     </select>
+
+    <insert id="insertLink" parameterType="com.huining.ssm.blog.entity.BlogLink">
+        insert into link <include refid="suLinkSql" />
+    </insert>
 </mapper>
 
 <!--

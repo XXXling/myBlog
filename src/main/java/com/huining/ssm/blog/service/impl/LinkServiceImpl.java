@@ -1,5 +1,6 @@
 package com.huining.ssm.blog.service.impl;
 
+import com.huining.ssm.blog.entity.BlogLink;
 import com.huining.ssm.blog.mapper.LinkMapper;
 import com.huining.ssm.blog.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,10 @@ public class LinkServiceImpl implements LinkService {
     @Override
     public Integer countLink(Integer status) {
         return linkMapper.countLink(status);
+    }
+
+    @Override
+    public void insertLink(BlogLink link) {
+        linkMapper.insertLink(link);
     }
 }

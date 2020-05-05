@@ -10,7 +10,7 @@ import java.util.Date;
  * @Date: 2020/4/21 19:03
  */
 @Data
-public class User implements Serializable {
+public class BlogUser implements Serializable {
     private static final long serialVersionUID = -4415517704211731385L;
     private Integer userId;
 
@@ -39,8 +39,12 @@ public class User implements Serializable {
      */
     private Integer articleCount;
 
-    public User(String userName, String userEmail) {
+    public BlogUser(String userName, String userEmail) {
         this.userName = userName;
         this.userEmail = userEmail;
+    }
+
+    public BlogUser(Integer userId){
+        this.userId = userId;
     }
 }

@@ -1,8 +1,7 @@
 package com.huining.ssm.blog.mapper;
 
-import com.huining.ssm.blog.entity.User;
+import com.huining.ssm.blog.entity.BlogUser;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * @Author: huining
@@ -11,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper {
 
-    User queryUser(User user);
+    BlogUser queryUser(BlogUser blogUser);
 
-    void updateUser(User user);
+    void updateUser(BlogUser blogUser);
 }

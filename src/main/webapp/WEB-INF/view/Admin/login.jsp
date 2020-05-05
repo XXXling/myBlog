@@ -119,9 +119,9 @@
 
     <%--登录验证--%>
     $("#submit-btn").click(function () {
-        var user = $("#user_login").val();
+        var blogUser = $("#user_login").val();
         var password = $("#user_pass").val();
-        if(user=="") {
+        if(blogUser=="") {
             alert("用户名不可为空!");
         } else if(password==""){
             alert("密码不可为空!");

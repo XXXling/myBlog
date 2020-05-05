@@ -1,9 +1,8 @@
 package com.huining.ssm.blog.service.impl;
 
-import com.huining.ssm.blog.entity.User;
+import com.huining.ssm.blog.entity.BlogUser;
 import com.huining.ssm.blog.mapper.UserMapper;
 import com.huining.ssm.blog.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +11,18 @@ import org.springframework.stereotype.Service;
  * @Date: 2020/4/27 18:08
  */
 @Service
-@Slf4j
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserMapper userMapper;
 
     @Override
-    public User queryUser(User user) {
-        return userMapper.queryUser(user);
+    public BlogUser queryUser(BlogUser blogUser) {
+        return userMapper.queryUser(blogUser);
     }
 
     @Override
-    public void updateUsere(User user) {
-        userMapper.updateUser(user);
+    public void updateUsere(BlogUser blogUser) {
+        userMapper.updateUser(blogUser);
     }
 }

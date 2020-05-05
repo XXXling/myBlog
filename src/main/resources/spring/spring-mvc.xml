@@ -49,25 +49,19 @@
     <mvc:resources mapping="/plugin/**" location="/resource/assets/plugin/"></mvc:resources>
 
 
-    <!--
-    配置拦截器
-    mvc:mapping 拦截器路径配置
-    mvc:exclude-mapping 拦截器不需要拦截的路径
-    -->
-
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="com.huining.ssm.blog.interceptor.HomeResourceInterceptor"/>
         </mvc:interceptor>
-        <!--<mvc:interceptor>
+        <mvc:interceptor>
             <mvc:mapping path="/admin"/>
-            <bean class="com.liuyanzhao.ssm.blog.interceptor.SecurityInterceptor"/>
+            <bean class="com.huining.ssm.blog.interceptor.SecurityInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/admin/**"/>
-            <bean class="com.liuyanzhao.ssm.blog.interceptor.SecurityInterceptor"/>
-        </mvc:interceptor>-->
+            <bean class="com.huining.ssm.blog.interceptor.SecurityInterceptor"/>
+        </mvc:interceptor>
 
     </mvc:interceptors>
 </beans>

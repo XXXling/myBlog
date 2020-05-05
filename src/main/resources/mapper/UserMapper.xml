@@ -17,23 +17,23 @@
 
     <sql id="suUserSql">
         <set>
-            <if test="userId != null">vuser_id = #{userId}</if>
-            <if test="userName != null and userName != ''">vuser_name = #{userName}</if>
-            <if test="userPass != null and userPass != ''">vuser_pass = #{userPass}</if>
-            <if test="userNickname != null and userNickname != ''">vuser_nickname = #{userNickname}</if>
-            <if test="userEmail != null and userEmail != ''">vuser_email = #{userEmail}</if>
-            <if test="userUrl != null and userUrl != ''">vuser_url = #{userUrl}</if>
-            <if test="userAvatar != null and userAvatar != ''">vuser_avatar = #{userAvatar}</if>
-            <if test="userLastLoginIp != null and userLastLoginIp != ''">vuser_last_login_ip = #{userLastLoginIp}</if>
-            <if test="userRegisterTime != null">vuser_register_time = #{userRegisterTime}</if>
-            <if test="userLastLoginTime != null">vuser_last_login_time = #{userLastLoginTime}</if>
+            <if test="userId != null">vuser_id = #{userId},</if>
+            <if test="userName != null and userName != ''">vuser_name, = #{userName}</if>
+            <if test="userPass != null and userPass != ''">vuser_pass, = #{userPass}</if>
+            <if test="userNickname != null and userNickname != ''">vuser_nickname, = #{userNickname}</if>
+            <if test="userEmail != null and userEmail != ''">vuser_email, = #{userEmail}</if>
+            <if test="userUrl != null and userUrl != ''">vuser_url, = #{userUrl}</if>
+            <if test="userAvatar != null and userAvatar != ''">vuser_avatar, = #{userAvatar}</if>
+            <if test="userLastLoginIp != null and userLastLoginIp != ''">vuser_last_login_ip, = #{userLastLoginIp}</if>
+            <if test="userRegisterTime != null">vuser_register_time = #{userRegisterTime},</if>
+            <if test="userLastLoginTime != null">vuser_last_login_time = #{userLastLoginTime},</if>
             <if test="userStatus != null">vuser_status = #{userStatus}</if>
         </set>
     </sql>
 
-    <select id="queryUser"  parameterType="com.huining.ssm.blog.entity.User" resultType="com.huining.ssm.blog.entity.User">
+    <select id="queryUser" parameterType="com.huining.ssm.blog.entity.BlogUser" resultType="com.huining.ssm.blog.entity.BlogUser">
         select <include refid="userSql"/>
-        from user
+        from blogUser
         <where>
             <if test="userId != null">and user_id = #{userId}</if>
             <if test="userName != null and userName!=''">and user_name = #{userName}</if>
@@ -50,8 +50,8 @@
         limit 1
     </select>
 
-    <update id="updateUser" parameterType="com.huining.ssm.blog.entity.User">
-        update user
+    <update id="updateUser" parameterType="com.huining.ssm.blog.entity.BlogUser">
+        update blogUser
         <include refid="suUserSql"/>
         where user_id = #{userId}
     </update>

@@ -22,7 +22,7 @@
             <if test="commentId != null">comment_id = #{commentId}</if>
             <if test="commentPid != null">comment_pid = #{commentPid}</if>
             <if test="commentPname != null and commentPname !=''">comment_pname = #{commentPname}</if>
-            <if test="commentArticleId != null and commentArticleId !=''">comment_article_id = #{commentArticleId}</if>
+            <if test="commentArticleId != null">comment_article_id = #{commentArticleId}</if>
             <if test="commentAuthorName != null and commentAuthorName !=''">comment_author_name = #{commentAuthorName}</if>
             <if test="commentAuthorEmail != null and commentAuthorEmail !=''">comment_author_email = #{commentAuthorEmail}</if>
             <if test="commentAuthorUrl != null and commentAuthorUrl !=''">comment_author_url = #{commentAuthorUrl}</if>
@@ -35,13 +35,31 @@
         </set>
     </sql>
 
-    <select id="listComments" resultType="com.huining.ssm.blog.entity.BlogComment" parameterType="Integer">
+    <select id="listComments" resultType="com.huining.ssm.blog.entity.BlogComment">
         select <include refid="commentSql" />
         from comment
         where comment_role = 0
-        order bycomment_id desc
+        order by comment_id desc
         limit #{limit}
     </select>
+
+    <select id="listCommentsByArticleId" resultType="com.huining.ssm.blog.entity.BlogComment">
+        select <include refid="commentSql" />
+        from comment
+        where comment_article_id = #{articleId}
+        order by comment_id desc
+    </select>
+
+    <insert id="insertComment" parameterType="com.huining.ssm.blog.entity.BlogComment">
+        insert into comment <include refid="suCommentSql"/>
+    </insert>
+
+    <select id="listRecentComment" resultType="com.huining.ssm.blog.entity.BlogComment">
+        select <include refid="commentSql"/>
+        from comment
+        ORDER BY comment_create_time desc LIMIT #{limit}
+    </select>
+
 </mapper>
 
 <!--

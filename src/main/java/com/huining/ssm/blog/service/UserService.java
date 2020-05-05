@@ -1,6 +1,6 @@
 package com.huining.ssm.blog.service;
 
-import com.huining.ssm.blog.entity.User;
+import com.huining.ssm.blog.entity.BlogUser;
 
 /**
  * @Author: huining
@@ -8,7 +8,7 @@ import com.huining.ssm.blog.entity.User;
  */
 public interface UserService {
 
-    User queryUser(User user);
+    BlogUser queryUser(BlogUser blogUser);
 
-    void updateUsere(User user);
+    void updateUsere(BlogUser blogUser);
 }

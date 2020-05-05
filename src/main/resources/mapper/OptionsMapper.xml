@@ -37,7 +37,7 @@
         </set>
     </sql>
 
-    <select id="getOptions" resultType="com.huining.ssm.blog.entity.Options">
+    <select id="getOptions" resultType="com.huining.ssm.blog.entity.BlogOptions">
         select <include refid="optionsSql"/>
         from options
         where option_status = 1 limit 1;

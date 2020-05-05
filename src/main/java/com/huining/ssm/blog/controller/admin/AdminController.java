@@ -2,7 +2,7 @@ package com.huining.ssm.blog.controller.admin;
 
 import com.huining.ssm.blog.entity.Article;
 import com.huining.ssm.blog.entity.BlogComment;
-import com.huining.ssm.blog.entity.User;
+import com.huining.ssm.blog.entity.BlogUser;
 import com.huining.ssm.blog.service.ArticleService;
 import com.huining.ssm.blog.service.CommentService;
 import com.huining.ssm.blog.service.UserService;
@@ -51,7 +51,7 @@ public class AdminController {
         List<Article> articles = articleService.listArticle(5);
         model.addAttribute(articles);
         // 评论列表
-        List<BlogComment> blogComments = commentService.listComments(5);
+        List<BlogComment> blogComments = commentService.listRecentComment(5);
         model.addAttribute(blogComments);
         return "Admin/index";
     }
@@ -82,27 +82,27 @@ public class AdminController {
         String password = request.getParameter("password");
         String rememberme = request.getParameter("rememberme");
 
-        User param = new User(username,"");
-        User user = userService.queryUser(param);
-        if (user == null || !user.getUserPass().equals(password)){
+        BlogUser param = new BlogUser(username,"");
+        BlogUser blogUser = userService.queryUser(param);
+        if (blogUser == null || !blogUser.getUserPass().equals(password)){
             map.put("code",0);
             map.put("msg","用户名或密码错误");
         }else {
             map.put("code",1);
             map.put("msg","");
-            request.getSession().setAttribute("user",user);
+            request.getSession().setAttribute("user", blogUser);
             if (rememberme != null){
-                Cookie nameCookie = new Cookie("username",user.getUserName());
-                Cookie passCookie = new Cookie("password",user.getUserPass());
+                Cookie nameCookie = new Cookie("username", blogUser.getUserName());
+                Cookie passCookie = new Cookie("password", blogUser.getUserPass());
                 nameCookie.setMaxAge(3 * 24 * 60 * 60);
                 passCookie.setMaxAge(3 * 24 * 60 * 60);
 
                 response.addCookie(nameCookie);
                 response.addCookie(passCookie);
             }
-            user.setUserLastLoginTime(new Date());
-            user.setUserLastLoginIp(getIpAddr(request));
-            userService.updateUsere(user);
+            blogUser.setUserLastLoginTime(new Date());
+            blogUser.setUserLastLoginIp(getIpAddr(request));
+            userService.updateUsere(blogUser);
         }
         String result = new JSONObject(map).toString();
         return result;

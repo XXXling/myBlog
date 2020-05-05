@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huining.ssm.blog.mapper.ArticleCategoryRefMapper">
+
+    <!--  根据文章ID获得分类列表  -->
+    <select id="listCategoryByArticleId" resultType="com.huining.ssm.blog.entity.BlogCategory">
+        SELECT
+        category.category_id, category.category_pid, category.category_name
+        FROM category, article_category_ref acf
+        where acf.article_id = #{articleId}  and acf.category_id = category.category_id
+        ORDER BY category.category_pid asc
+    </select>
+
+    <select id="countArticleByCategoryId" resultType="Integer">
+        select count(1) from article_category_ref where category_id = #{categoryId}
+    </select>
+
+    <!--批量插入文章与分类关联数据-->
+    <insert id="insert">
+        insert into article_category_ref
+        (article_id,category_id) VALUES
+        <foreach collection="categories" index="index" separator="," item="category">
+            (#{articleId},#{category.categoryId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByCategoryId">
+        delete from article_category_ref where category_id = #{categoryId}
+    </delete>
+
+</mapper>

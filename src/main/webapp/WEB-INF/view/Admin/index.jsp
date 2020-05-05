@@ -104,7 +104,7 @@
         a, div {
             outline: 0;
         }
-        user agent stylesheet
+        blogUser agent stylesheet
         div {
             display: block;
         }
@@ -191,7 +191,7 @@
             /* margin-bottom: 6px; */
         }
 
-        user agent stylesheet
+        blogUser agent stylesheet
         li {
             display: list-item;
             text-align: -webkit-match-parent;
@@ -202,7 +202,7 @@
         a, div {
             outline: 0;
         }
-        user agent stylesheet
+        blogUser agent stylesheet
         div {
             display: block;
         }

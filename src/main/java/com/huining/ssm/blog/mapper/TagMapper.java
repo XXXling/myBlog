@@ -1,6 +1,11 @@
 package com.huining.ssm.blog.mapper;
 
+import com.huining.ssm.blog.entity.BlogTag;
+import com.huining.ssm.blog.entity.Tag;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @Author: huining
@@ -9,4 +14,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TagMapper {
     Integer countTag();
+
+    List<BlogTag> listTag();
+
+    BlogTag getTagById(@Param("tagId") Integer tagId);
 }

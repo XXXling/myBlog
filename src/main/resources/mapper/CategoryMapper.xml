@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.huining.ssm.blog.mapper.CategoryMapper">
-    <sql id="blogCategory">
+    <sql id="categorySql">
         category_id as categoryId,
         category_pid as categoryPid,
         category_name as categoryName,
@@ -10,9 +10,8 @@
         category_icon as categoryIcon
     </sql>
 
-    <sql id="saveCategory">
+    <sql id="suCategorySql">
         <set>
-            <if test="categoryId != null">category_id = #{categoryId},</if>
             <if test="categoryPid != null">category_pid = #{categoryPid},</if>
             <if test="categoryName != null and categoryName!=''">category_name = #{categoryName},</if>
             <if test="categoryDescription != null and categoryDescription!=''">category_description = #{categoryDescription},</if>
@@ -22,8 +21,38 @@
     </sql>
 
     <select id="listCategory" resultType="com.huining.ssm.blog.entity.BlogCategory">
-        select <include refid="blogCategory"/>
+        select <include refid="categorySql"/>
         from category
         order by category_order desc,category_id asc
     </select>
+
+    <select id="countCategory" resultType="com.huining.ssm.blog.entity.BlogCategory">
+        select  count(1) from category
+    </select>
+
+    <select id="queryCatoryByArticleId" resultType="com.huining.ssm.blog.entity.BlogCategory">
+        select <include refid="categorySql"/>
+        from category
+        where category_id in (select categoryId from article_category_ref where article_id = #{articleId})
+    </select>
+
+    <select id="getCategoryById" resultType="com.huining.ssm.blog.entity.BlogCategory">
+        select <include refid="categorySql"/>
+        from category
+        where category_id = #(cateId)
+    </select>
+
+    <insert id="insert" parameterType="com.huining.ssm.blog.entity.BlogCategory">
+        insert into category <include refid="suCategorySql"/>;
+    </insert>
+
+    <delete id="delete">
+        delte from category where category_id = #{categoryId}
+    </delete>
+
+    <update id="updateCategory" parameterType="com.huining.ssm.blog.entity.BlogCategory">
+        update category
+        <include refid="suCategorySql"/>
+        where
+    </update>
 </mapper>

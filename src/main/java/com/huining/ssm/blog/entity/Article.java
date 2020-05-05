@@ -1,5 +1,6 @@
 package com.huining.ssm.blog.entity;
 
+import com.huining.ssm.blog.enums.ArticleStatus;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -40,9 +41,20 @@ public class Article implements Serializable {
 
     private String articleSummary;
 
-    private User user;
+    // 非数据库字段
+    private Integer categoryId;
+
+    private BlogUser blogUser;
 
     private List<BlogTag> tagList;
 
     private List<BlogCategory> categoryList;
+
+    public Article() {
+    }
+
+    public Article(Integer articleId) {
+        this.articleId = articleId;
+        this.articleStatus = ArticleStatus.PUBLISH.getValue();
+    }
 }

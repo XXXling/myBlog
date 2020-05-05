@@ -10,9 +10,9 @@
     <%--顶部菜单 start--%>
     <nav id="top-header">
         <div class="top-nav">
-            <div class="user-login">
+            <div class="blogUser-login">
                 <c:choose>
-                    <c:when test="${sessionScope.user==null}">
+                    <c:when test="${sessionScope.blogUser==null}">
                         <a href="/admin">登录</a>
                     </c:when>
                     <c:otherwise>
