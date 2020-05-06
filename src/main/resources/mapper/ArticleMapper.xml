@@ -17,10 +17,11 @@
         article_summary as articleSummary
     </sql>
 
-    <sql id="suArticle">
+    <sql id="suArticleSql">
         <set>
+            <if test="articleId != null">article_id = #{articleId},</if>
             <if test="articleUserId != null">article_user_id = #{articleUserId},</if>
-            <if test="articleTitle != null and articleTitle != ''">article_title like concat('%',#{articleTitle},'%'),</if>
+            <if test="articleTitle != null and articleTitle != ''">article_title = #{articleTitle},</if>
             <if test="articleContent != null and articleContent != ''">article_content = #{articleContent},</if>
             <if test="articleViewCount != null">article_view_count = #{articleViewCount},</if>
             <if test="articleCommentCount != null">article_comment_count = #{articleCommentCount},</if>
@@ -64,7 +65,7 @@
     </select>
 
     <!--  获取最后更新的文章  -->
-    <select id="getLasUupdateArticle" resultType="com.huining.ssm.blog.entity.Article">
+    <select id="getLastupdateArticle" resultType="com.huining.ssm.blog.entity.Article">
         SELECT <include refid="articleSql"/> from article where article_status = 1 ORDER BY article_update_time desc limit 1
     </select>
 
@@ -114,12 +115,14 @@
                 WHERE article_category_ref.category_id = #{categoryId})
             </if>
         </where>
+        ORDER BY `article`.`article_update_time` DESC, `article`.`article_create_time` DESC, `article`.`article_order` DESC, `article`.`article_id` DESC
     </select>
 
     <select id="listArticleByLimit" resultType="com.huining.ssm.blog.entity.Article">
         select <include refid="articleSql"/>
         from article
-        where article_status = 1 order by article_update_time desc limit #{limit};
+        order by article_id desc
+        limit #{limit};
     </select>
 
     <select id="listAboutArticle" resultType="com.huining.ssm.blog.entity.Article">
@@ -166,7 +169,7 @@
         SELECT <include refid="articleSql" />
         FROM article
         WHERE
-        article_status = 1 AND article_id != #(articleId)
+        article_id != #{articleId} and article_status = 1
         ORDER BY RAND()
 	    LIMIT 8
     </select>
@@ -184,7 +187,7 @@
         SELECT <include refid="articleSql" />
         FROM article
         WHERE
-        article_status = 1 AND article_id != #(articleId)
+        article_status = 1 AND article_id != #{articleId}
         ORDER BY article_comment_count DESC,article_order DESC, article_id DESC
         LIMIT 8
     </select>
@@ -208,11 +211,11 @@
     <update id="updateCommentCount">
         UPDATE article
         SET article_comment_count = (SELECT count(1) FROM `comment` WHERE comment.comment_article_id = article.article_id)
-        WHERE article.article_id = #{id}
+        WHERE article.article_id = #{articleId}
     </update>
 
-    <insert id="insertArticle" parameterType="com.huining.ssm.blog.entity.Article">
-        insert into article <include refid="articleSql"/>;
+    <insert id="insertArticle" parameterType="com.huining.ssm.blog.entity.Article" useGeneratedKeys="true" keyProperty="articleId">
+        insert into article <include refid="suArticleSql"/>
     </insert>
 
     <delete id="deleteById">
@@ -228,9 +231,15 @@
         </foreach>
     </delete>
 
-    <update id="updateArticleDetail" parameterType="com.huining.ssm.blog.entity.Article">
+    <update id="updateArticle" parameterType="com.huining.ssm.blog.entity.Article">
         update article
-        <include refid="suArticle"/>
+        <include refid="suArticleSql"/>
         where article_id = #{articleId}
     </update>
+
+    <select id="countArticleByUserId" resultType="com.huining.ssm.blog.entity.Article">
+        select count(1)
+        from article
+        where article_user_id = #{userId} and article_status = 1
+    </select>
 </mapper>

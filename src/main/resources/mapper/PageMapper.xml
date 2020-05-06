@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huining.ssm.blog.mapper.PageMapper">
+    <sql id="pageSql">
+        page_id as pageId,
+        page_key as pageKey,
+        page_title as pageTitle,
+        page_content as pageContent,
+        page_create_time as pageCreateTime,
+        page_update_time as pageUpdateTime,
+        page_view_count as pageViewCount,
+        page_comment_count as pageCommentCount,
+        page_status as pageStatus
+    </sql>
+
+    <sql id="suPageSql">
+        <set>
+            <if test="pageId != null">page_id = #{pageId},</if>
+            <if test="pageKey != null and pageKey != ''">page_key = #{pageKey},</if>
+            <if test="pageTitle != null and pageTitle != ''">page_title = #{pageTitle},</if>
+            <if test="pageContent != null and pageContent != ''">page_content = #{pageContent},</if>
+            <if test="pageCreateTime != null">page_create_time = #{pageCreateTime},</if>
+            <if test="pageUpdateTime != null">page_update_time = #{pageUpdateTime},</if>
+            <if test="pageViewCount != null">page_view_count = #{pageViewCount},</if>
+            <if test="pageCommentCount != null">page_comment_count = #{pageCommentCount},</if>
+            <if test="pageStatus != null">page_status = #{pageStatus}</if>
+        </set>
+    </sql>
+
+    <select id="getPageByKey" resultType="com.huining.ssm.blog.entity.BlogPage">
+        select <include refid="pageSql"/>
+        from page
+        <where>
+            <if test="status != null">page_status = #{status} and </if>
+            page_key = #{key}
+        </where>
+    </select>
+
+    <select id="listPage" resultType="com.huining.ssm.blog.entity.BlogPage">
+        select <include refid="pageSql"/>
+        from page
+        <where>
+            <if test="status != null">and page_status = #{status} </if>
+        </where>
+    </select>
+
+    <select id="getPageById" resultType="com.huining.ssm.blog.entity.BlogPage">
+        select <include refid="pageSql"/>
+        from page
+        where page_id = #{id}
+    </select>
+
+    <insert id="insertPage" parameterType="com.huining.ssm.blog.entity.BlogPage"  useGeneratedKeys="true" keyProperty="pageId">
+        insert into page <include refid="suPageSql"/>;
+    </insert>
+
+    <delete id="deleteById">
+        delete from page where page_id = #{id}
+    </delete>
+
+    <update id="updatePage" parameterType="com.huining.ssm.blog.entity.BlogPage">
+        update page
+        <include refid="suPageSql"/>
+        where page_id = #{pageId}
+    </update>
+
+</mapper>
+
+<!--
+page_id
+page_key
+page_title
+page_content
+page_create_time
+page_update_time
+page_view_count
+page_comment_count
+page_status
+
+
+pageId
+pageKey
+pageTitle
+pageContent
+pageCreateTime
+pageUpdateTime
+pageViewCount
+pageCommentCount
+pageStatus
+
+-->

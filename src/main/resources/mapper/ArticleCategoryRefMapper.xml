@@ -19,8 +19,11 @@
     <insert id="insert">
         insert into article_category_ref
         (article_id,category_id) VALUES
-        <foreach collection="categories" index="index" separator="," item="category">
-            (#{articleId},#{category.categoryId})
+        <foreach collection="articleCategoryRefs" index="index" separator="," item="item">
+            (
+            #{item.articleId},
+            #{item.categoryId}
+            )
         </foreach>
     </insert>
 

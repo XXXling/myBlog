@@ -81,7 +81,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getLastUpdateArticle() {
         Article lasArticle = null;
         try {
-            lasArticle = articleMapper.getLasUupdateArticle();
+            lasArticle = articleMapper.getLastupdateArticle();
         } catch (Exception e) {
             e.printStackTrace();
             log.error("获取最后更新的文章失败，cause:{}",e);
@@ -108,7 +108,14 @@ public class ArticleServiceImpl implements ArticleService {
             param.setArticleStatus(value);
         }
         param.setArticleId(articleId);
-        return articleMapper.findArticle(param);
+        Article article = articleMapper.findArticle(param);
+        if (article != null) {
+            List<BlogCategory> categories = articleCategoryRefMapper.listCategoryByArticleId(article.getArticleId());
+            List<BlogTag> tags = articleTagRefMapper.listTagByArticleId(article.getArticleId());
+            article.setCategoryList(categories);
+            article.setTagList(tags);
+        }
+        return article;
     }
 
     @Override
@@ -233,7 +240,7 @@ public class ArticleServiceImpl implements ArticleService {
             }
             article.setCategoryList(categorys);
         }
-        return null;
+        return new PageInfo<>(articles);
     }
 
     @Override
@@ -260,9 +267,26 @@ public class ArticleServiceImpl implements ArticleService {
         articleMapper.insertArticle(article);
 
         //添加分类和文章关联
-        articleCategoryRefMapper.insert(article.getArticleId(),article.getCategoryList());
+        if (article.getCategoryList() != null && article.getCategoryList().size()>0) {
+            List<ArticleCategoryRef> articleCategoryRefs = new ArrayList<>();
+            for (BlogCategory category : article.getCategoryList()) {
+                ArticleCategoryRef articleCategoryRef = new ArticleCategoryRef(article.getArticleId(),category.getCategoryId());
+                articleCategoryRefs.add(articleCategoryRef);
+            }
+            articleCategoryRefMapper.insert(articleCategoryRefs);
+        }
+
+
         //添加标签和文章关联
-        articleTagRefMapper.insert(article.getArticleId(),article.getTagList());
+        if (article.getTagList() != null && article.getTagList().size()>0) {
+            List<ArticleTagRef> articleTagRefs = new ArrayList<>();
+            for (BlogTag blogTag : article.getTagList()) {
+                ArticleTagRef articleTagRef = new ArticleTagRef(article.getArticleId(), blogTag.getTagId());
+                articleTagRefs.add(articleTagRef);
+            }
+            articleTagRefMapper.insert(articleTagRefs);
+        }
+
     }
 
     @Override
@@ -276,8 +300,40 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateArticleDetail(Article article) {
-        articleMapper.updateArticleDetail(article);
+        article.setArticleUpdateTime(new Date());
+        articleMapper.updateArticle(article);
+
+        if (article.getCategoryList() != null && article.getCategoryList().size()>0) {
+            // 删除分类和文章关联
+            articleCategoryRefMapper.deleteByCategoryId(article.getCategoryId());
+            // 添加分类和文章关联
+            List<ArticleCategoryRef> articleCategoryRefs = new ArrayList<>();
+            for (BlogCategory category : article.getCategoryList()) {
+                ArticleCategoryRef articleCategoryRef = new ArticleCategoryRef(article.getArticleId(),category.getCategoryId());
+                articleCategoryRefs.add(articleCategoryRef);
+            }
+
+            articleCategoryRefMapper.insert(articleCategoryRefs);
+        }
+        if (article.getTagList() != null && article.getTagList().size()>0) {
+            // 删除标签和文章关联
+            articleTagRefMapper.deleteByTagId(article.getTagList());
+            // 添加分类和文章关联
+            List<ArticleTagRef> articleTagRefs = new ArrayList<>();
+            for (BlogTag blogTag : article.getTagList()) {
+                ArticleTagRef articleTagRef = new ArticleTagRef(article.getArticleId(), blogTag.getTagId());
+                articleTagRefs.add(articleTagRef);
+            }
+
+            articleTagRefMapper.insert(articleTagRefs);
+        }
+    }
+
+    @Override
+    public void updateArticle(Article article) {
+        articleMapper.updateArticle(article);
     }
 
     @Override
@@ -285,5 +341,9 @@ public class ArticleServiceImpl implements ArticleService {
         return articleCategoryRefMapper.countArticleByCategoryId(id);
     }
 
+    @Override
+    public Integer countArticleByTagId(Integer id) {
+        return articleTagRefMapper.countArticleByTagId(id);
+    }
 
 }

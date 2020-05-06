@@ -6,6 +6,8 @@ import com.huining.ssm.blog.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author: huining
  * @Date: 2020/4/24 13:41
@@ -29,5 +31,25 @@ public class LinkServiceImpl implements LinkService {
     @Override
     public void insertLink(BlogLink link) {
         linkMapper.insertLink(link);
+    }
+
+    @Override
+    public BlogLink getLinkById(Integer id) {
+        return linkMapper.getLinkById(id);
+    }
+
+    @Override
+    public List<BlogLink> listLink(Integer status) {
+        return linkMapper.listLink(status);
+    }
+
+    @Override
+    public void deleteLink(Integer id) {
+        linkMapper.deleteLink(id);
+    }
+
+    @Override
+    public void updateLink(BlogLink link) {
+        linkMapper.updateLink(link);
     }
 }

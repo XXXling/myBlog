@@ -26,6 +26,21 @@
     <select id="getTagById" resultType="com.huining.ssm.blog.entity.BlogTag">
         select <include refid="tagSql"/> from tag where tag_id = #{tagId}
     </select>
+
+    <insert id="insertTag" parameterType="com.huining.ssm.blog.entity.BlogTag"  useGeneratedKeys="true" keyProperty="tagId">
+        insert into tag <include refid="suTagSql"/>;
+    </insert>
+
+    <delete id="deleteTag">
+        delete from tag where tag_id = #{id}
+    </delete>
+
+    <update id="updateTag" parameterType="com.huining.ssm.blog.entity.BlogTag">
+        update tag
+        <include refid="suTagSql"/>
+        where tag_id = #{tagId}
+    </update>
+
 </mapper>
 
 <!--

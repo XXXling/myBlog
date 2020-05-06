@@ -28,4 +28,14 @@ public class OptionsServiceImpl implements OptionsService {
         }
         return options;
     }
+
+    @Override
+    public void insertOptions(BlogOptions options) {
+        optionsMapper.insertOptions(options);
+    }
+
+    @Override
+    public void updateOptions(BlogOptions options) {
+        optionsMapper.updateOptions(options);
+    }
 }

@@ -18,14 +18,14 @@
         option_status as optionStatus
     </sql>
 
-    <sql id="suOptions">
+    <sql id="suOptionsSql">
         <set>
             <if test="optionId != null">option_id = #{optionId},</if>
             <if test="optionSiteTitle != null and optionSiteTitle!=''">option_site_title = #{optionSiteTitle},</if>
             <if test="optionSiteDescrption != null and optionSiteDescrption!=''">option_site_descrption = #{optionSiteDescrption},</if>
             <if test="optionMetaDescrption != null and optionMetaDescrption!=''">option_meta_descrption = #{optionMetaDescrption},</if>
             <if test="optionMetaKeyword != null and optionMetaKeyword!=''">option_meta_keyword = #{optionMetaKeyword},</if>
-            <if test="option_aboutsite_avatar != null and option_aboutsite_avatar!=''">option_aboutsite_avatar = #{option_aboutsite_avatar},</if>
+            <if test="optionAboutsiteAvatar != null and optionAboutsiteAvatar!=''">option_aboutsite_avatar = #{optionAboutsiteAvatar},</if>
             <if test="optionAboutsiteTitle != null and optionAboutsiteTitle!=''">option_aboutsite_title = #{optionAboutsiteTitle},</if>
             <if test="optionAboutsiteContent != null and optionAboutsiteContent!=''">option_aboutsite_content = #{optionAboutsiteContent},</if>
             <if test="optionAboutsiteWechat != null and optionAboutsiteWechat!=''">option_aboutsite_wechat = #{optionAboutsiteWechat},</if>
@@ -42,6 +42,16 @@
         from options
         where option_status = 1 limit 1;
     </select>
+
+    <insert id="insertOptions" parameterType="com.huining.ssm.blog.entity.BlogOptions"  useGeneratedKeys="true" keyProperty="optionId">
+        insert into options <include refid="suOptionsSql"/>;
+    </insert>
+
+    <update id="updateOptions" parameterType="com.huining.ssm.blog.entity.BlogOptions">
+        update options
+        <include refid="suOptionsSql"/>
+        where option_id = #{optionId}
+    </update>
 </mapper>
 <!--
 optionId

@@ -8,11 +8,16 @@ import lombok.Data;
  */
 @Data
 public class BlogMenu {
-    private static final Long serialVersionUID = 489914127235951698L;
+    private static final long serialVersionUID = 489914127235951698L;
     private Integer menuId;
+
     private String menuName;
+
     private String menuUrl;
-    private String menuLevel;
+
+    private Integer menuLevel;
+
     private String menuIcon;
-    private String menuOrder;
+
+    private Integer menuOrder;
 }

@@ -120,7 +120,7 @@
 
                     <footer class="single-footer">
                         <ul class="single-meta">
-                            <c:if test="${sessionScope.blogUser!=null}">
+                            <c:if test="${sessionScope.user!=null}">
                                 <li class="edit-link">
                                     <a target="_blank" class="post-edit-link"
                                        href="/admin/article/edit/${article.articleId}">编辑</a>
@@ -300,19 +300,19 @@
                            style="">取消回复</a>
                     </h3>
                     <form id="comment_form" method="post">
-                        <c:if test="${sessionScope.blogUser!=null}">
+                        <c:if test="${sessionScope.user!=null}">
                             <div class="user_avatar">
                                 <img alt="言曌"
-                                     src="${sessionScope.blogUser.userAvatar}"
+                                     src="${sessionScope.user.userAvatar}"
                                      class="avatar avatar-64 photo" height="64" width="64">
-                                登录者：${sessionScope.blogUser.userNickname}
+                                登录者：${sessionScope.user.userNickname}
                                 <br> <a href="javascript:void(0)" onclick="logout()">登出</a>
                                 <input type="hidden" name="commentRole" value="1">
                                 <input type="hidden" name="commentAuthorName"
-                                       value="${sessionScope.blogUser.getUserNickname()}">
+                                       value="${sessionScope.user.getUserNickname()}">
                                 <input type="hidden" name="commentAuthorEmail"
-                                       value="${sessionScope.blogUser.getUserEmail()}">
-                                <input type="hidden" name="commentAuthorUrl" value="${sessionScope.blogUser.getUserUrl()}">
+                                       value="${sessionScope.user.getUserEmail()}">
+                                <input type="hidden" name="commentAuthorUrl" value="${sessionScope.user.getUserUrl()}">
                             </div>
                         </c:if>
                         <p class="comment-form-comment">
@@ -321,7 +321,7 @@
                         <div id="comment-author-info">
                             <input type="hidden" name="commentPid" value="0">
                             <input type="hidden" name="commentPname" value="">
-                            <c:if test="${sessionScope.blogUser == null}">
+                            <c:if test="${sessionScope.user == null}">
                                 <input type="hidden" name="commentRole" value="0">
                                 <p class="comment-form-author">
                                     <label for="author_name">
@@ -384,7 +384,7 @@
                                                     </span>
                                                     <fmt:formatDate value="${c.commentCreateTime}"
                                                                     pattern="yyyy年MM月dd日 HH:mm:ss"/>&nbsp;
-                                                    <c:if test="${sessionScope.blogUser != null}">
+                                                    <c:if test="${sessionScope.user != null}">
                                                         <a href="javascript:void(0)"
                                                            onclick="deleteComment(${c.commentId})">删除</a>
                                                         <a class="comment-edit-link"
@@ -433,7 +433,7 @@
                                                         </span>
                                                         <fmt:formatDate value="${c2.commentCreateTime}"
                                                                         pattern="yyyy年MM月dd日 HH:mm:ss"/>&nbsp;
-                                                        <c:if test="${sessionScope.blogUser != null}">
+                                                        <c:if test="${sessionScope.user != null}">
                                                             <a href="javascript:void(0)"
                                                                onclick="deleteComment(${c2.commentId})">删除</a>
                                                             <a class="comment-edit-link"

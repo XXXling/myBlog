@@ -39,4 +39,14 @@ public interface MenuService{
      * @return
      */
     BlogMenu findMenuById(Integer id);
+
+    /**
+     * create by: huining
+     * description:新建菜单
+     * create time: 15:44 2020/5/6
+     * @param menu:
+     * @return: void
+     */
+    void insertMenu(BlogMenu menu);
+
 }

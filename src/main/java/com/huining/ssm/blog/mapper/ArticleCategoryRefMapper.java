@@ -1,6 +1,7 @@
 package com.huining.ssm.blog.mapper;
 
 import com.huining.ssm.blog.entity.ArticleCategoryRef;
+import com.huining.ssm.blog.entity.ArticleTagRef;
 import com.huining.ssm.blog.entity.BlogCategory;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,11 +31,10 @@ public interface ArticleCategoryRefMapper {
      * create by: huining
      * description:批量插入文章与分类关联数据
      * create time: 00:21 2020/5/6
-     * @param articleId: 
-     * @param categorys:
+     * @param articleCategoryRefs:
      * @return: void
      */
-    void insert(@Param("articleId") Integer articleId,@Param("categorys") List<BlogCategory> categorys);
+    void insert(@Param("articleCategoryRefs") List<ArticleCategoryRef> articleCategoryRefs);
 
     /**
      * create by: huining

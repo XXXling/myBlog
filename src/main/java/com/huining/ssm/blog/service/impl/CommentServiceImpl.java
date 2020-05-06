@@ -1,5 +1,7 @@
 package com.huining.ssm.blog.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.huining.ssm.blog.entity.Article;
 import com.huining.ssm.blog.entity.BlogComment;
 import com.huining.ssm.blog.enums.ArticleStatus;
@@ -28,8 +30,13 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
 
     @Override
-    public List<BlogComment> listComments(Integer limit) {
-        return commentMapper.listComments(limit);
+    public BlogComment getCommentById(Integer id) {
+        return commentMapper.getCommentById(id);
+    }
+
+    @Override
+    public List<BlogComment> listComments() {
+        return commentMapper.listComments();
     }
 
     @Override
@@ -56,6 +63,38 @@ public class CommentServiceImpl implements CommentService {
             log.error("获取最近评论失败，cause:{}",e);
         }
         return comments;
+    }
+
+    @Override
+    public PageInfo<BlogComment> listCommentByPage(Integer pageIndex, Integer pageSize) {
+        PageHelper.startPage(pageIndex,pageSize);
+        List<BlogComment> comments = null;
+        try {
+            comments = commentMapper.listComments();
+            for (BlogComment comment : comments) {
+                Article article = articleService.getArticleDetails(ArticleStatus.PUBLISH.getValue(),comment.getCommentArticleId());
+                comment.setArticle(article);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("分页获得评论失败,pageIndex:{}, pageSize:{}, cause:{}", pageIndex, pageSize, e);
+        }
+        return new PageInfo<>(comments);
+    }
+
+    @Override
+    public List<BlogComment> listChildComment(Integer pid) {
+        return commentMapper.listChildComment(pid);
+    }
+
+    @Override
+    public void deleteComments(List<BlogComment> commentList) {
+        commentMapper.deleteComments(commentList);
+    }
+
+    @Override
+    public void updateComment(BlogComment comment) {
+        commentMapper.update(comment);
     }
 
 

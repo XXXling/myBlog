@@ -14,4 +14,22 @@ public interface OptionsService {
      * @return 系统设置
      */
     BlogOptions getOptions();
+
+    /**
+     * create by: huining
+     * description:新增基本信息
+     * create time: 16:01 2020/5/6
+     * @param options: 
+     * @return: void
+     */
+    void insertOptions(BlogOptions options);
+
+    /**
+     * create by: huining
+     * description:更新基本信息
+     * create time: 16:04 2020/5/6
+     * @param options:
+     * @return: void
+     */
+    void updateOptions(BlogOptions options);
 }

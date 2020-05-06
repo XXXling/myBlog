@@ -10,4 +10,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface OptionsMapper {
     BlogOptions getOptions();
+
+    void insertOptions(BlogOptions options);
+
+    void updateOptions(BlogOptions options);
 }

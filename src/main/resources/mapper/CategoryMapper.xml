@@ -12,6 +12,7 @@
 
     <sql id="suCategorySql">
         <set>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
             <if test="categoryPid != null">category_pid = #{categoryPid},</if>
             <if test="categoryName != null and categoryName!=''">category_name = #{categoryName},</if>
             <if test="categoryDescription != null and categoryDescription!=''">category_description = #{categoryDescription},</if>
@@ -39,20 +40,20 @@
     <select id="getCategoryById" resultType="com.huining.ssm.blog.entity.BlogCategory">
         select <include refid="categorySql"/>
         from category
-        where category_id = #(cateId)
+        where category_id = #{cateId}
     </select>
 
-    <insert id="insert" parameterType="com.huining.ssm.blog.entity.BlogCategory">
+    <insert id="insert" parameterType="com.huining.ssm.blog.entity.BlogCategory"  useGeneratedKeys="true" keyProperty="categoryId">
         insert into category <include refid="suCategorySql"/>;
     </insert>
 
     <delete id="delete">
-        delte from category where category_id = #{categoryId}
+        delete from category where category_id = #{categoryId}
     </delete>
 
     <update id="updateCategory" parameterType="com.huining.ssm.blog.entity.BlogCategory">
         update category
         <include refid="suCategorySql"/>
-        where
+        where category_id = #{categoryId}
     </update>
 </mapper>

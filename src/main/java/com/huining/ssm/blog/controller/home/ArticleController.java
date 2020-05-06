@@ -61,7 +61,7 @@ public class ArticleController {
 
         //评论列表
         List<BlogComment> comments = commentService.listCommentsByArticleId(articleId);
-        model.addAttribute("commentList",comments);
+        model.addAttribute("commentList", comments);
 
         //相关文章
         List<Article> similarArticleList = articleService.listAboutArticle(articleId);
@@ -84,13 +84,12 @@ public class ArticleController {
 
         //获得热评文章
         List<Article> mostCommentArticleList = articleService.listArticleByCommentCount(articleId);
-
         //侧边栏
         //标签列表显示
         List<BlogTag> allTagList =tagService.listTag();
 
         model.addAttribute("randomArticleList",randomArticleList);
-        model.addAttribute("mostArticleList",mostCommentArticleList);
+        model.addAttribute("mostCommentArticleList", mostCommentArticleList);
         model.addAttribute("allTagList",allTagList);
 
         return "Home/Page/articleDetail";

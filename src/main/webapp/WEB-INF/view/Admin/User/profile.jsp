@@ -31,9 +31,9 @@
     <blockquote class="layui-elem-quote">
          <span class="layui-breadcrumb" lay-separator="/">
               <a href="/admin">首页</a>
-              <a href="/admin/blogUser">用户列表</a>
+              <a href="/admin/user">用户列表</a>
               <c:choose>
-                  <c:when test="${sessionScope.blogUser.userId==blogUser.userId}">
+                  <c:when test="${sessionScope.user.userId==user.userId}">
                       <a><cite>个人信息</cite></a>
                   </c:when>
                   <c:otherwise>
@@ -43,16 +43,16 @@
         </span>
     </blockquote>
     <br><br>
-    <form class="layui-form" action="/admin/blogUser/editSubmit" id="userForm"
+    <form class="layui-form" action="/admin/user/editSubmit" id="userForm"
           method="post">
-        <input type="hidden" name="userId" id="userId" value="${blogUser.userId}">
+        <input type="hidden" name="userId" id="userId" value="${user.userId}">
         <div class="layui-form-item">
-            <a class="layui-btn layui-btn-primary"  href="/admin/blogUser/edit/${blogUser.userId}">编辑</a>
+            <a class="layui-btn layui-btn-primary"  href="/admin/user/edit/${user.userId}">编辑</a>
             <label class="layui-form-label">头像</label>
             <div class="layui-input-inline">
                 <div class="layui-upload">
                     <div class="layui-upload-list" style="">
-                        <img class="layui-upload-img" src="${blogUser.userAvatar}" id="demo1" width="100"
+                        <img class="layui-upload-img" src="${user.userAvatar}" id="demo1" width="100"
                              height="100">
                         <p id="demoText"></p>
                     </div>
@@ -62,7 +62,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">用户名 </label>
             <div class="layui-input-inline">
-                <input type="text" value="${blogUser.userName}"  id="userName" required
+                <input type="text" value="${user.userName}"  id="userName" required
                        autocomplete="off" class="layui-input" disabled>
             </div>
             <div class="layui-form-mid layui-word-aux" id="userNameTips"></div>
@@ -70,7 +70,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">密码 </label>
             <div class="layui-input-inline">
-                <input type="password" value="${blogUser.userPass}" id="userPass" required
+                <input type="password" value="${user.userPass}" id="userPass" required
                        autocomplete="off" class="layui-input" min="3" max="20" disabled>
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
@@ -78,7 +78,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">昵称 </label>
             <div class="layui-input-inline">
-                <input type="text"  value="${blogUser.userNickname}" required
+                <input type="text"  value="${user.userNickname}" required
                        placeholder="" autocomplete="off" min="2" max="10"
                        class="layui-input" disabled>
             </div>
@@ -87,7 +87,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">Email </label>
             <div class="layui-input-inline">
-                <input type="email"  value="${blogUser.userEmail}" id="userEmail" required
+                <input type="email"  value="${user.userEmail}" id="userEmail" required
                        class="layui-input" disabled>
             </div>
             <div class="layui-form-mid layui-word-aux" id="userEmailTips"></div>
@@ -95,14 +95,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">URL </label>
             <div class="layui-input-inline">
-                <input type="url"  value="${blogUser.userUrl}" placeholder="" autocomplete="off"
+                <input type="url"  value="${user.userUrl}" placeholder="" autocomplete="off"
                        class="layui-input" disabled>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">注册时间 </label>
             <div class="layui-input-inline">
-                <input type="text"  value="<fmt:formatDate value="${blogUser.userRegisterTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <input type="text"  value="<fmt:formatDate value="${user.userRegisterTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 " placeholder="" autocomplete="off"
                        class="layui-input" disabled>
             </div>
@@ -110,7 +110,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">最后登录时间 </label>
             <div class="layui-input-inline">
-                <input type="text"  value='<fmt:formatDate value="${blogUser.userLastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <input type="text"  value='<fmt:formatDate value="${user.userLastLoginTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 ' placeholder="" autocomplete="off"
                        class="layui-input" disabled>
             </div>
@@ -118,7 +118,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">最后登录IP </label>
             <div class="layui-input-inline">
-                <input type="text"  value="${blogUser.userLastLoginIp}" placeholder="" autocomplete="off"
+                <input type="text"  value="${user.userLastLoginIp}" placeholder="" autocomplete="off"
                        class="layui-input" disabled>
             </div>
         </div>
@@ -126,7 +126,7 @@
             <label class="layui-form-label">状态 </label>
             <div class="layui-input-inline">
                 <input type="text"  value='<c:choose>
-                    <c:when test="${blogUser.userStatus==0}">禁用
+                    <c:when test="${user.userStatus==0}">禁用
                     </c:when>
                     <c:otherwise>正常
                     </c:otherwise>

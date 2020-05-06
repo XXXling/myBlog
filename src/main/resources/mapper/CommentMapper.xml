@@ -19,18 +19,18 @@
 
     <sql id="suCommentSql">
         <set>
-            <if test="commentId != null">comment_id = #{commentId}</if>
-            <if test="commentPid != null">comment_pid = #{commentPid}</if>
-            <if test="commentPname != null and commentPname !=''">comment_pname = #{commentPname}</if>
-            <if test="commentArticleId != null">comment_article_id = #{commentArticleId}</if>
-            <if test="commentAuthorName != null and commentAuthorName !=''">comment_author_name = #{commentAuthorName}</if>
-            <if test="commentAuthorEmail != null and commentAuthorEmail !=''">comment_author_email = #{commentAuthorEmail}</if>
-            <if test="commentAuthorUrl != null and commentAuthorUrl !=''">comment_author_url = #{commentAuthorUrl}</if>
-            <if test="commentAuthorAvatar != null and commentAuthorAvatar !=''">comment_author_avatar = #{commentAuthorAvatar}</if>
-            <if test="commentContent != null and commentContent !=''">comment_content = #{commentContent}</if>
-            <if test="commentAgent != null and commentAgent !=''">comment_agent = #{commentAgent}</if>
-            <if test="commentIp != null and commentIp !=''">comment_ip = #{commentIp}</if>
-            <if test="commentCreateTime != null">comment_create_time = #{commentCreateTime}</if>
+            <if test="commentId != null">comment_id = #{commentId},</if>
+            <if test="commentPid != null">comment_pid = #{commentPid},</if>
+            <if test="commentPname != null and commentPname !=''">comment_pname = #{commentPname},</if>
+            <if test="commentArticleId != null">comment_article_id = #{commentArticleId},</if>
+            <if test="commentAuthorName != null and commentAuthorName != ''">comment_author_name = #{commentAuthorName},</if>
+            <if test="commentAuthorEmail != null and commentAuthorEmail !=''">comment_author_email = #{commentAuthorEmail},</if>
+            <if test="commentAuthorUrl != null and commentAuthorUrl !=''">comment_author_url = #{commentAuthorUrl},</if>
+            <if test="commentAuthorAvatar != null and commentAuthorAvatar !=''">comment_author_avatar = #{commentAuthorAvatar},</if>
+            <if test="commentContent != null and commentContent !=''">comment_content = #{commentContent},</if>
+            <if test="commentAgent != null and commentAgent !=''">comment_agent = #{commentAgent},</if>
+            <if test="commentIp != null and commentIp !=''">comment_ip = #{commentIp},</if>
+            <if test="commentCreateTime != null">comment_create_time = #{commentCreateTime},</if>
             <if test="commentRole != null">comment_role = #{commentRole}</if>
         </set>
     </sql>
@@ -38,9 +38,7 @@
     <select id="listComments" resultType="com.huining.ssm.blog.entity.BlogComment">
         select <include refid="commentSql" />
         from comment
-        where comment_role = 0
         order by comment_id desc
-        limit #{limit}
     </select>
 
     <select id="listCommentsByArticleId" resultType="com.huining.ssm.blog.entity.BlogComment">
@@ -50,16 +48,47 @@
         order by comment_id desc
     </select>
 
-    <insert id="insertComment" parameterType="com.huining.ssm.blog.entity.BlogComment">
+    <insert id="insertComment" parameterType="com.huining.ssm.blog.entity.BlogComment" useGeneratedKeys="true" keyProperty="commentId">
         insert into comment <include refid="suCommentSql"/>
     </insert>
 
     <select id="listRecentComment" resultType="com.huining.ssm.blog.entity.BlogComment">
         select <include refid="commentSql"/>
         from comment
+        WHERE comment_role = 0
         ORDER BY comment_create_time desc LIMIT #{limit}
     </select>
 
+    <select id="getCommentById" resultType="com.huining.ssm.blog.entity.BlogComment">
+        select <include refid="commentSql"/>
+        from comment
+        where comment_id = #{commentId}
+    </select>
+
+    <!--根据id查找子评论-->
+    <select id="listChildComment" resultType="com.huining.ssm.blog.entity.BlogComment">
+        select <include refid="commentSql"/>
+        from comment
+        where comment_pid = #{pid}
+    </select>
+
+    <delete id="deleteComment">
+        delete from comment where comment_id = #{commentId}
+    </delete>
+
+    <delete id="deleteComments">
+        delete from comment
+        where comment_id in
+        <foreach collection="comments" open="(" close=")" separator="," item="comment">
+            #{comment.commentId}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="com.huining.ssm.blog.entity.BlogComment">
+        update comment
+        <include refid="suCommentSql"/>
+        where comment_id = #{commentId}
+    </update>
 </mapper>
 
 <!--
@@ -77,6 +106,38 @@ comment_ip
 comment_create_time
 comment_role
 
+
+
+commentId
+commentPid
+commentPname
+commentArticleId
+commentAuthorName
+commentAuthorEmail
+commentAuthorUrl
+commentAuthorAvatar
+commentContent
+commentAgent
+commentIp
+commentCreateTime
+commentRole
+-->
+
+
+<!--
+comment_id
+comment_pid
+comment_pname
+comment_article_id
+comment_author_name
+comment_author_email
+comment_author_url
+comment_author_avatar
+comment_content
+comment_agent
+comment_ip
+comment_create_time
+comment_role
 
 
 commentId

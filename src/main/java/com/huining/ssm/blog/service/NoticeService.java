@@ -22,4 +22,31 @@ public interface NoticeService {
      * @return: com.huining.ssm.blog.entity.Notice
      */
     Notice getNoticeById(Integer noticeId);
+
+    /**
+     * create by: huining
+     * description:新增公告
+     * create time: 15:49 2020/5/6
+     * @param notice:
+     * @return: void
+     */
+    void insertNotice(Notice notice);
+
+    /**
+     * create by: huining
+     * description:删除公告
+     * create time: 15:53 2020/5/6
+     * @param id:
+     * @return: void
+     */
+    void deleteNotice(Integer id);
+
+    /**
+     * create by: huining
+     * description:更新公告
+     * create time: 15:54 2020/5/6
+     * @param notice:
+     * @return: void
+     */
+    void updateNotice(Notice notice);
 }

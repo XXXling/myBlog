@@ -56,9 +56,7 @@ public interface ArticleMapper {
      *
      * @return Article
      */
-    Article getLasUupdateArticle();
-
-    Article getArticleDetails(Integer value, Integer articleId);
+    Article getLastupdateArticle();
 
     /**
      * create by: huining
@@ -195,5 +193,14 @@ public interface ArticleMapper {
      * @param article:
      * @return: void
      */
-    void updateArticleDetail(Article article);
+    void updateArticle(Article article);
+
+    /**
+     * create by: huining
+     * description:统计用户发表的文章数
+     * create time: 17:19 2020/5/6
+     * @param userId: 
+     * @return: java.lang.Integer
+     */
+    Integer countArticleByUserId(@Param("userId") Integer userId);
 }

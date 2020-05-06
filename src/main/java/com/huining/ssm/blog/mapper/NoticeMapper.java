@@ -25,4 +25,31 @@ public interface NoticeMapper {
      * @return: com.huining.ssm.blog.entity.Notice
      */
     Notice getNoticeById(@Param("noticeId") Integer noticeId);
+
+    /**
+     * create by: huining
+     * description:新增公告
+     * create time: 15:50 2020/5/6
+     * @param notice:
+     * @return: void
+     */
+    void insertNotice(Notice notice);
+
+    /**
+     * create by: huining
+     * description:根据id删除公告
+     * create time: 15:52 2020/5/6
+     * @param id:
+     * @return: void
+     */
+    void deleteNotice(@Param("id") Integer id);
+
+    /**
+     * create by: huining
+     * description:更新公告
+     * create time: 15:54 2020/5/6
+     * @param notice:
+     * @return: void
+     */
+    void updateNotice(Notice notice);
 }

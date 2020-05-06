@@ -17,17 +17,17 @@
 
     <sql id="suLinkSql">
         <set>
-            <if test="linkId != null and linkId !=''">link_id = #{linkId},</if>
+            <if test="linkId != null">link_id = #{linkId},</if>
             <if test="linkUrl != null and linkUrl !=''">link_url = #{linkUrl},</if>
             <if test="linkName != null and linkName !=''">link_name = #{linkName},</if>
             <if test="linkImage != null and linkImage !=''">link_image = #{linkImage},</if>
             <if test="linkDescription != null and linkDescription !=''">link_description = #{linkDescription},</if>
             <if test="linkOwnerNickname != null and linkOwnerNickname !=''">link_owner_nickname = #{linkOwnerNickname},</if>
             <if test="linkOwnerContact != null and linkOwnerContact !=''">link_owner_contact = #{linkOwnerContact},</if>
-            <if test="linkUpdateTime != null and linkUpdateTime !=''">link_update_time = #{linkUpdateTime},</if>
-            <if test="linkCreateTime != null and linkCreateTime !=''">link_create_time = #{linkCreateTime},</if>
-            <if test="linkOrder != null and linkOrder !=''">link_order = #{linkOrder},</if>
-            <if test="linkStatus != null and linkStatus !=''">link_status = #{linkStatus},</if>
+            <if test="linkUpdateTime != null">link_update_time = #{linkUpdateTime},</if>
+            <if test="linkCreateTime != null">link_create_time = #{linkCreateTime},</if>
+            <if test="linkOrder != null">link_order = #{linkOrder},</if>
+            <if test="linkStatus != null">link_status = #{linkStatus},</if>
         </set>
     </sql>
 
@@ -35,9 +35,33 @@
         select count(0) from link where link_status = #{status};
     </select>
 
-    <insert id="insertLink" parameterType="com.huining.ssm.blog.entity.BlogLink">
+    <insert id="insertLink" parameterType="com.huining.ssm.blog.entity.BlogLink"  useGeneratedKeys="true" keyProperty="linkId">
         insert into link <include refid="suLinkSql" />
     </insert>
+
+    <select id="getLinkById" resultType="com.huining.ssm.blog.entity.BlogLink">
+        select <include refid="linkSql"/>
+        from link
+        where link_id = #{id}
+    </select>
+
+    <select id="listLink" resultType="com.huining.ssm.blog.entity.BlogLink">
+        select <include refid="linkSql"/>
+        from link
+        <where>
+            <if test="status != null">link_status = #{status}</if>
+        </where>
+    </select>
+
+    <delete id="deleteLink">
+        delete from link where link_id = #{id}
+    </delete>
+
+    <update id="updateLink" parameterType="com.huining.ssm.blog.entity.BlogLink">
+        update link
+        <include refid="suLinkSql"/>
+        where link_id = #{linkId}
+    </update>
 </mapper>
 
 <!--

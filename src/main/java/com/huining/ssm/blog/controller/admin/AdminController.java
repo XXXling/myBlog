@@ -49,10 +49,10 @@ public class AdminController {
     public String index(Model model)  {
         // 文章列表
         List<Article> articles = articleService.listArticle(5);
-        model.addAttribute(articles);
+        model.addAttribute("articleList",articles);
         // 评论列表
         List<BlogComment> blogComments = commentService.listRecentComment(5);
-        model.addAttribute(blogComments);
+        model.addAttribute("commentList",blogComments);
         return "Admin/index";
     }
 
@@ -90,20 +90,24 @@ public class AdminController {
         }else {
             map.put("code",1);
             map.put("msg","");
+            //添加session
             request.getSession().setAttribute("user", blogUser);
-            if (rememberme != null){
-                Cookie nameCookie = new Cookie("username", blogUser.getUserName());
-                Cookie passCookie = new Cookie("password", blogUser.getUserPass());
-                nameCookie.setMaxAge(3 * 24 * 60 * 60);
-                passCookie.setMaxAge(3 * 24 * 60 * 60);
-
+            //添加cookie
+            if(rememberme!=null) {
+                //创建两个Cookie对象
+                Cookie nameCookie = new Cookie("username", username);
+                //设置Cookie的有效期为3天
+                nameCookie.setMaxAge(60 * 60 * 24 * 3);
+                Cookie pwdCookie = new Cookie("password", password);
+                pwdCookie.setMaxAge(60 * 60 * 24 * 3);
                 response.addCookie(nameCookie);
-                response.addCookie(passCookie);
+                response.addCookie(pwdCookie);
             }
             blogUser.setUserLastLoginTime(new Date());
             blogUser.setUserLastLoginIp(getIpAddr(request));
-            userService.updateUsere(blogUser);
-        }
+            userService.updateUser(blogUser);
+            }
+
         String result = new JSONObject(map).toString();
         return result;
     }

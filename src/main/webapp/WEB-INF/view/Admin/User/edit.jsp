@@ -27,32 +27,32 @@
     <blockquote class="layui-elem-quote">
          <span class="layui-breadcrumb" lay-separator="/">
               <a href="/admin">首页</a>
-              <a href="/admin/blogUser">用户列表</a>
+              <a href="/admin/user">用户列表</a>
               <a><cite>编辑用户</cite></a>
         </span>
     </blockquote>
     <br><br>
-    <form class="layui-form" action="/admin/blogUser/editSubmit" id="userForm"
+    <form class="layui-form" action="/admin/user/editSubmit" id="userForm"
           method="post">
-        <input type="hidden" name="userId" id="userId" value="${blogUser.userId}">
+        <input type="hidden" name="userId" id="userId" value="${user.userId}">
         <div class="layui-form-item">
             <label class="layui-form-label">头像</label>
             <div class="layui-input-inline">
                 <div class="layui-upload">
                     <div class="layui-upload-list" style="">
-                        <img class="layui-upload-img" src="${blogUser.userAvatar}" id="demo1" width="100"
+                        <img class="layui-upload-img" src="${user.userAvatar}" id="demo1" width="100"
                              height="100">
                         <p id="demoText"></p>
                     </div>
                     <button type="button" class="layui-btn" id="test1">上传图片</button>
-                    <input type="hidden" name="userAvatar" id="userAvatar" value="${blogUser.userAvatar}">
+                    <input type="hidden" name="userAvatar" id="userAvatar" value="${user.userAvatar}">
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">用户名 <span style="color: #FF5722; ">*</span></label>
             <div class="layui-input-inline">
-                <input type="text" value="${blogUser.userName}" name="userName" id="userName" required
+                <input type="text" value="${user.userName}" name="userName" id="userName" required
                        lay-verify="userName"
                        autocomplete="off" class="layui-input" onblur="checkUserName()">
             </div>
@@ -61,7 +61,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">密码 <span style="color: #FF5722; ">*</span></label>
             <div class="layui-input-inline">
-                <input type="password" name="userPass" value="${blogUser.userPass}" id="userPass" required
+                <input type="password" name="userPass" value="${user.userPass}" id="userPass" required
                        autocomplete="off" class="layui-input" min="3" max="20">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
@@ -69,7 +69,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">昵称 <span style="color: #FF5722; ">*</span></label>
             <div class="layui-input-inline">
-                <input type="text" name="userNickname" value="${blogUser.userNickname}" required
+                <input type="text" name="userNickname" value="${user.userNickname}" required
                        placeholder="" autocomplete="off" min="2" max="10"
                        class="layui-input">
             </div>
@@ -78,7 +78,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">Email <span style="color: #FF5722; ">*</span></label>
             <div class="layui-input-inline">
-                <input type="email" name="userEmail" value="${blogUser.userEmail}" id="userEmail" required
+                <input type="email" name="userEmail" value="${user.userEmail}" id="userEmail" required
                        lay-verify="userEmail"
                        class="layui-input" onblur="checkUserEmail()">
             </div>
@@ -87,15 +87,15 @@
         <div class="layui-form-item">
             <label class="layui-form-label">URL </label>
             <div class="layui-input-inline">
-                <input type="url" name="userUrl" value="${blogUser.userUrl}" placeholder="" autocomplete="off"
+                <input type="url" name="userUrl" value="${user.userUrl}" placeholder="" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
-                <input type="radio" name="userStatus" value="1" title="正常" <c:if test="${blogUser.userStatus==1}">checked</c:if>>
-                <input type="radio" name="userStatus" value="0" title="禁用" <c:if test="${blogUser.userStatus==0}">checked</c:if>>
+                <input type="radio" name="userStatus" value="1" title="正常" <c:if test="${user.userStatus==1}">checked</c:if>>
+                <input type="radio" name="userStatus" value="0" title="禁用" <c:if test="${user.userStatus==0}">checked</c:if>>
             </div>
         </div>
         <div class="layui-form-item">

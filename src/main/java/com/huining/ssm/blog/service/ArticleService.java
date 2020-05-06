@@ -194,12 +194,21 @@ public interface ArticleService {
 
     /**
      * create by: huining
-     * description:修改文章详细信息
+     * description:更新文章及其关联信息
      * create time: 00:01 2020/5/6
      * @param article: 
      * @return: void
      */
     void updateArticleDetail(Article article);
+
+    /**
+     * create by: huining
+     * description:更新文章
+     * create time: 15:14 2020/5/6
+     * @param article:
+     * @return: void
+     */
+    void updateArticle(Article article);
 
     /**
      * create by: huining
@@ -209,4 +218,13 @@ public interface ArticleService {
      * @return: int
      */
     int countArticleByCategoryId(Integer id);
+
+    /**
+     * create by: huining
+     * description:查询该标签有多少文章
+     * create time: 17:06 2020/5/6
+     * @param id: 
+     * @return: java.lang.Integer
+     */
+    Integer countArticleByTagId(Integer id);
 }

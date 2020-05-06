@@ -2,9 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.huining.ssm.blog.mapper.ArticleTagRefMapper">
     <insert id="insert">
-        insert into article_tag_ref (article_id,tag_id) VALUES
-        <foreach collection="tagList" index="index" separator="," item="tag">
-            (#{articleId},#{tag.tagId})
+        insert into article_tag_ref (article_id,tag_id) VALUE
+        <foreach collection="articleTagRefs" index="index" separator="," item="item">
+            (
+            #{item.articleId},
+            #{item.tagId}
+            )
         </foreach>
     </insert>
+
+    <delete id="deleteByTagId">
+        delete from article_tag_ref where tag_id in
+        <foreach collection="tags" open="(" close=")" separator="," item="tag">
+            #{tag.tagId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByTagIdSingle">
+        delete from article_tag_ref where tag_id = #{tagId}
+    </delete>
+
+    <select id="countArticleByTagId" resultType="Integer">
+        select count(1)
+        from article_tag_ref
+        where tag_id = #{tagId}
+    </select>
+
+    <select id="listTagByArticleId" resultType="com.huining.ssm.blog.entity.BlogTag">
+        select tag.* from tag, article_tag_ref
+        WHERE article_tag_ref.article_id = #{articleId} AND
+        article_tag_ref.tag_id = tag.tag_id
+    </select>
 </mapper>

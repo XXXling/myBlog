@@ -15,9 +15,9 @@
             <if test="menuId != null">menu_id = #{menuId},</if>
             <if test="menuName != null and menuName !=''">menu_name = #{menuName},</if>
             <if test="menuUrl != null and menuUrl !=''">menu_url = #{menuUrl},</if>
-            <if test="menuLevel != null and menuLevel !=''">menu_level = #{menuLevel},</if>
+            <if test="menuLevel != null">menu_level = #{menuLevel},</if>
             <if test="menuIcon != null and menuIcon !=''">menu_icon = #{menuIcon},</if>
-            <if test="menuOrder != null and menuOrder !=''">menu_order = #{menuOrder}</if>
+            <if test="menuOrder != null">menu_order = #{menuOrder}</if>
         </set>
     </sql>
 
@@ -27,7 +27,7 @@
         order by menu_order DESC,menu_id ASC;
     </select>
 
-    <insert id="addMenu" parameterType="com.huining.ssm.blog.entity.BlogMenu">
+    <insert id="insterMenu" parameterType="com.huining.ssm.blog.entity.BlogMenu"  useGeneratedKeys="true" keyProperty="menuId">
         insert into menu <include refid="saveMenu"/>;
     </insert>
 
@@ -35,10 +35,10 @@
         delete from menu where menu_id = #{id};
     </delete>
 
-    <update id="updateMunu" parameterType="com.huining.ssm.blog.entity.BlogMenu">
+    <update id="updateMenu" parameterType="com.huining.ssm.blog.entity.BlogMenu">
         update menu
         <include refid="saveMenu"/>
-        where menu_id = #{id};
+        where menu_id = #{menuId};
     </update>
 
     <select id="findMenuById" resultType="com.huining.ssm.blog.entity.BlogMenu" parameterType="Integer">

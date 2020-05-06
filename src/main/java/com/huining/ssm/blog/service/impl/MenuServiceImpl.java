@@ -43,4 +43,9 @@ public class MenuServiceImpl implements MenuService{
     public BlogMenu findMenuById(Integer id) {
         return menuMapper.findMenuById(id);
     }
+
+    @Override
+    public void insertMenu(BlogMenu menu) {
+        menuMapper.insterMenu(menu);
+    }
 }

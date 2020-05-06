@@ -26,7 +26,9 @@
     <select id="listNotice" resultType="com.huining.ssm.blog.entity.Notice">
         select <include refid="noticeSql"/>
         from notice
-        where notice_status = #{status}
+        <where>
+            <if test="status != null">notice_status = #{status}</if>
+        </where>
         ORDER BY notice_status ASC, notice_order DESC, notice_id ASC
     </select>
 
@@ -35,6 +37,21 @@
         from notice
         where notice_id = #{noticeId}
     </select>
+
+    <insert id="insertNotice" parameterType="com.huining.ssm.blog.entity.Notice"  useGeneratedKeys="true" keyProperty="noticeId">
+        insert into notice <include refid="suNoticeSql"/>;
+    </insert>
+
+    <delete id="deleteNotice">
+        delete from notice where notice_id = #{id}
+    </delete>
+
+    <update id="updateNotice" parameterType="com.huining.ssm.blog.entity.Notice">
+        update notice
+        <include refid="suNoticeSql"/>
+        where notice_id = #{noticeId}
+    </update>
+
 </mapper>
 
 <!--

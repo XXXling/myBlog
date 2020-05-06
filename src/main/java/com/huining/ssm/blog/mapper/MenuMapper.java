@@ -2,6 +2,7 @@ package com.huining.ssm.blog.mapper;
 
 import com.huining.ssm.blog.entity.BlogMenu;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public interface MenuMapper {
 
     int insterMenu(BlogMenu menu);
 
-    int deleteMenu(Integer id);
+    int deleteMenu(@Param("id") Integer id);
 
     int updateMenu(BlogMenu menu);
 
-    BlogMenu findMenuById(Integer id);
+    BlogMenu findMenuById(@Param("id")Integer id);
 }

@@ -1,6 +1,6 @@
 <%@ page import="java.security.MessageDigest" %>
 <%@ page import="java.security.NoSuchAlgorithmException" %>
-<%@ page import="com.liuyanzhao.ssm.blog.util.MyUtils" %>
+<%@ page import="com.huining.ssm.blog.util.MyUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -47,19 +47,19 @@
         <div class="layui-form-item">
             <label class="layui-form-label">我的昵称 </label>
             <div class="layui-input-block">
-                <input type="text" name="commentAuthorName"  value="${sessionScope.blogUser.getUserNickname()}" class="layui-input">
+                <input type="text" name="commentAuthorName"  value="${sessionScope.user.getUserNickname()}" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">我的邮箱 </label>
             <div class="layui-input-block">
-                <input type="text" name="commentAuthorEmail"  value="${sessionScope.blogUser.getUserEmail()}" class="layui-input">
+                <input type="text" name="commentAuthorEmail"  value="${sessionScope.user.getUserEmail()}" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">我的网址 </label>
             <div class="layui-input-block">
-                <input type="text" name="commentAuthorUrl"  value="${sessionScope.blogUser.getUserUrl()}" class="layui-input">
+                <input type="text" name="commentAuthorUrl"  value="${sessionScope.user.getUserUrl()}" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item layui-form-text">

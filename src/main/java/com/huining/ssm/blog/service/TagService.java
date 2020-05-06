@@ -34,4 +34,40 @@ public interface TagService {
      * @return: com.huining.ssm.blog.entity.BlogTag
      */
     BlogTag getTagById(Integer tagId);
+
+    /**
+     * create by: huining
+     * description:获得标签列表
+     * create time: 16:49 2020/5/6
+     
+     * @return: java.util.List<com.huining.ssm.blog.entity.BlogTag>
+     */
+    List<BlogTag> listTagWithCount();
+
+    /**
+     * create by: huining
+     * description:新增标签
+     * create time: 16:49 2020/5/6
+     * @param tag: 
+     * @return: void
+     */
+    void insertTag(BlogTag tag);
+
+    /**
+     * create by: huining
+     * description:删除标签
+     * create time: 16:56 2020/5/6
+     * @param id: 
+     * @return: void
+     */
+    void deleteTag(Integer id);
+
+    /**
+     * create by: huining
+     * description:编辑标签
+     * create time: 17:01 2020/5/6
+     * @param tag: 
+     * @return: void
+     */
+    void updateTag(BlogTag tag);
 }
